@@ -1,5 +1,5 @@
 #Parcelas divididas en el tiempo
-#Diseño de 5 trtamientos A
+#DiseÃ±o de 5 trtamientos A
 # 3 Bloques
 #3 Cortes B
 #b1 Primer corte
@@ -46,20 +46,20 @@ B<-factor(rep(c("b1","b2","b3"),c(18,18,18)))
 #Se abrupan los datos los factores y los bloques en un data.frame data 
 data<-data.frame(y,Bloques,TratA,B) 
 #
-#Gráficas
+#GrÃ¡ficas
 #
-interaction.plot(TratA,B,y,main="Interacción AxB",trace.label="Cortes" ,
+interaction.plot(TratA,B,y,main="InteracciÃ³n AxB",trace.label="Cortes" ,
                  xlab="Tratamientos de A",ylab="Media de datos",type="l", col=c(1,2,4))
 #
-interaction.plot(B,TratA,y,main="Interacción BxA",trace.label="Trat de A" ,
+interaction.plot(B,TratA,y,main="InteracciÃ³n BxA",trace.label="Trat de A" ,
                  xlab="Tratamientos de B",ylab="Media de datos",type="l", col=c(1,2,4,5,3,6))
 #
-#En la gráfica interacción AxB los cortes se comportan de manera similar al pasar por los niveles
-#de los tratamientos de A. También, el corte b1, linea punteada negra, alcanza valores
-#máximo en los tratamientos a1 y a2. Lo que puede generar una significancia.
+#En la grÃ¡fica interacciÃ³n AxB los cortes se comportan de manera similar al pasar por los niveles
+#de los tratamientos de A. TambiÃ©n, el corte b1, linea punteada negra, alcanza valores
+#mÃ¡ximo en los tratamientos a1 y a2. Lo que puede generar una significancia.
 #
-#La gráfica interacción BxA los tratamintos de A se comportan de manera similar, sin 
-#mostrar una interacción significativa. Los tratamientos se comportan muy lineal al 
+#La grÃ¡fica interacciÃ³n BxA los tratamintos de A se comportan de manera similar, sin 
+#mostrar una interacciÃ³n significativa. Los tratamientos se comportan muy lineal al 
 #pasar por los diferentes cortes.
 #
 #Numero de niveles de los factores y bloques
@@ -71,7 +71,7 @@ gl.a=l.a-1 #GL A
 gl.bl=l.bl-1 #GL Bloques
 gl.b=l.b-1  #GL B
 #
-#Término de corrección y Suma de Cuadrados
+#TÃ©rmino de correcciÃ³n y Suma de Cuadrados
 TC=((sum(y)^2)/length(y))
 SCTot=sum(y^2)-TC
 #
@@ -85,27 +85,27 @@ SCA<-((sum((rowSums(tabla_ABloq))^2))/(l.bl*l.b))-TC #SC factor A
 SCBloq<-((sum((colSums(tabla_ABloq))^2))/(l.a*l.b))-TC #SC bloques
 SCEa=SCPG-SCA-SCBloq #Suma de cuadrados del error de A
 #
-#Tabla de la combinación AxB
+#Tabla de la combinaciÃ³n AxB
 tabla_combAB<-tapply(y,list(TratA,B),sum)
 tabla_combAB
 #Suma de Cuadrados
-SCcomAB=(sum(tabla_combAB^2)/l.bl)-TC #SC combinación AxB
+SCcomAB=(sum(tabla_combAB^2)/l.bl)-TC #SC combinaciÃ³n AxB
 SCB<-((sum((colSums(tabla_combAB))^2))/(l.a*l.bl))-TC #SC del factor B
-SCAB=SCcomAB-SCA-SCB #SC de la Interacción AB
+SCAB=SCcomAB-SCA-SCB #SC de la InteracciÃ³n AB
 #
-#Tabla de la combinación BloquesxB
+#Tabla de la combinaciÃ³n BloquesxB
 tabla_BBloq<-tapply(y,list(B,Bloques),sum)
 tabla_BBloq
 #Suma de Cuadrados
-SCcomBBl=(sum(tabla_BBloq^2)/(l.a))-TC #SC combinación BxBloques
-SCBBloq=SCcomBBl-SCBloq-SCB #SC interacción BxBloques 
+SCcomBBl=(sum(tabla_BBloq^2)/(l.a))-TC #SC combinaciÃ³n BxBloques
+SCBBloq=SCcomBBl-SCBloq-SCB #SC interacciÃ³n BxBloques 
 SCEb=SCTot-SCBBloq-SCB-SCPG-SCAB #SC del error de B
 #
 (SCEb+SCBBloq+SCB+SCPG+SCAB)==SCTot 
 #
-#¿Como generar la tabla del Analisis de varianza total? 
+#Â¿Como generar la tabla del Analisis de varianza total? 
 #Idea: generar un data.frame a partir de los vectores:
-#Fuentes de Vaiación, Df, Sum Sq, Mean Sq, F value, Pr(>F)
+#Fuentes de VaiaciÃ³n, Df, Sum Sq, Mean Sq, F value, Pr(>F)
 #tomando como fuente de idea el comando str(modelo.anova)
 #donde se define la estructura de tabla de resumen para los ANOVA
 #
@@ -128,8 +128,8 @@ F_tab<-c(NA,qf(.95,Df[2],Df[3]),NA,qf(.95,Df[4],Df[7]),qf(.95,Df[5],Df[7]),
 Valor_P<-c(NA,1-pf(F_value[2],Df[2],Df[3]),NA,1-pf(F_value[4],Df[4],Df[7]),
       1-pf(F_value[5],Df[5],Df[7]),1-pf(F_value[6],Df[6],Df[7]),NA,NA)
 #
-#qf() es una función que genera valores tabulares
-#pf() es una función que genera un valor de probabilidad, es decir, un valor P.
+#qf() es una funciÃ³n que genera valores tabulares
+#pf() es una funciÃ³n que genera un valor de probabilidad, es decir, un valor P.
 #
 anova<-data.frame(fuentes,Df,Sum_sq,Mean_sq,F_value,F_tab,Valor_P)
 anova #Impreme la tabla de resumen del Analisis de Varianza
@@ -138,11 +138,11 @@ anova #Impreme la tabla de resumen del Analisis de Varianza
 #Significativos con un nivel de significancia del 5%. Esto quire decir que 
 #que hay diferencias sobre las variables respuesta entre los cortes. 
 #
-#Por otro lado, la interacción BloquesxCortes es significativa al 5%,
-#Sin embargo esta información reafirma la naturaleza de los bloques, la cual 
+#Por otro lado, la interacciÃ³n BloquesxCortes es significativa al 5%,
+#Sin embargo esta informaciÃ³n reafirma la naturaleza de los bloques, la cual 
 #es que sean diferentes entre si, y por ende generan un cambio de los 
 #tratamientos al pasar por los distintos niveles de los bloques. Cabe 
-#agregar que esta interacción se hace relevante al disminuir error experimental.
+#agregar que esta interacciÃ³n se hace relevante al disminuir error experimental.
 #
 #Distancias Criticas
 meanAB<-tapply(y,list(TratA,B),mean)
@@ -171,12 +171,12 @@ t
 DCB=Sx*t
 DCB
 MeanB<-colMeans(meanAB)
-#Comparaciones Logicas con la distancia crítica
+#Comparaciones Logicas con la distancia crÃ­tica
 (MeanB[1]-MeanB[3])>DCB
 (MeanB[2]-MeanB[3])>DCB
 (MeanB[1]-MeanB[2])>DCB
 #
-#Como la interacción de los Cortes es significativa, entonces se realiza la comparación
+#Como la interacciÃ³n de los Cortes es significativa, entonces se realiza la comparaciÃ³n
 #entre las medias de los cortes descritas en el vector MeanB, para el cual el corte b1
 # y b2 difieren respecto al corte b3, sin embargo entre los cortes b1 y b2 no hay un cambio
 #significativo.
@@ -186,20 +186,20 @@ MeanB<-colMeans(meanAB)
 #
 #Para el desarrollo del ejercicio: 
 #Al introducir los datos, la mejor manera es relizarlo de forma general. 
-#Obteniendo así un data.frame como data así el manejo de los datos y la 
-#presentación de las distintas tablas es mas fácil con la función tapply()
+#Obteniendo asÃ­ un data.frame como data asÃ­ el manejo de los datos y la 
+#presentaciÃ³n de las distintas tablas es mas fÃ¡cil con la funciÃ³n tapply()
 #
 #El desarrollor el procedimiento que expone Hernan Gomez hace el ejercicio
 #Un trabajo dispendioso al manejar numerosas variables y tablas. Sin embargo
 #conocer y manejar los modelos de efectos mixtos facilita el desarrollo del ejercicio. 
 #
-#En el momento de armar la tabla de resumen anova, con los distintos vectores, sería 
-#mucho mas fácil desarrollar una función que realice este trabajo de manera automatica
+#En el momento de armar la tabla de resumen anova, con los distintos vectores, serÃ­a 
+#mucho mas fÃ¡cil desarrollar una funciÃ³n que realice este trabajo de manera automatica
 #especial para parcelas divididas. 
 #
 #El manejo de nuevas funciones, facilito el ejercicio como son las funciones taply(), 
-#colSums(), Sin embargo este trabajo da pie para indagar sobre la construcción de nuevas
-#funciones propias, el manejo de matrices y graficas que mejoren la representación de los datos.
+#colSums(), Sin embargo este trabajo da pie para indagar sobre la construcciÃ³n de nuevas
+#funciones propias, el manejo de matrices y graficas que mejoren la representaciÃ³n de los datos.
 
 
 

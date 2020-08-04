@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 Parcelas en el tiempo
 ================
+
+Son la compilación de algunos scripts para la clase de bioestadística II del programa de ingeniería forestal de la Universidad Nacional en 2015. Son ejercicios de analisis de factores y bloques. Se desarrollan anovas y pruebas post-hoc. Un ejemplo son las parcelas divididas en el tiempo. 
+
 
 ## Parcelas divididas en el tiempo
 
@@ -416,3 +420,4 @@ El manejo de nuevas funciones, facilito el ejercicio como son las
 funciones *taply()*, *colSums()*, Sin embargo este trabajo da pie para
 indagar sobre la construcción de nuevas funciones propias, el manejo de
 matrices y graficas que mejoren la representación de los datos.
+
