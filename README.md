@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Parcelas en el tiempo
 ================
 
